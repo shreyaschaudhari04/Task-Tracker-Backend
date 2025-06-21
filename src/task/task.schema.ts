@@ -12,6 +12,9 @@ export class Task {
     @Prop()
     description: string;
 
+    @Prop({ type: Boolean, default: false })
+    completed: boolean;
+
     @Prop({type: Types.ObjectId, ref: 'User', required: true})
     userId: string;
 }

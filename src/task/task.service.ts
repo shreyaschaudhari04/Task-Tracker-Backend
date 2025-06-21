@@ -20,9 +20,18 @@ export class TaskService {
     }
 
     //GEt task for a particular user using userId
-    async getUserTask(userId: string) {
-        return this.taskModel.find({userId});
-    }
+   async getUserTask(userId: string) {
+  const tasks = await this.taskModel
+    .find({ userId })
+    .sort({ createdAt: -1 });
+
+    return tasks.map(task => ({
+    id: task._id.toString(),
+    title: task.title,
+    description: task.description,
+    completed: task.completed,
+  }));
+}
 
     //Delete a task for a user with user id
     async deleteUserTask(userId: string, taskId: string) {
